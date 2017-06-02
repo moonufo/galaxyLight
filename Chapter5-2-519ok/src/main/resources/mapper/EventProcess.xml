@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.didispace.web.Manager">
+	<resultMap type="com.didispace.web.EventProcess" id="eventProcessMap">
+		<result column="id" property="id" jdbcType="INTEGER" />
+		<result column="bid" property="bid" jdbcType="INTEGER" />
+		<result column="sid" property="sid" jdbcType="INTEGER" />
+		<result column="etype" property="etype" jdbcType="INTEGER" />
+		<result column="bapp" property="bapp" jdbcType="VARCHAR" />
+		<result column="service" property="service" jdbcType="VARCHAR" />
+		<result column="paremater" property="paremater" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="INTEGER" />
+		<result column="uri" property="uri" jdbcType="VARCHAR" />
+		<result column="eresponse" property="eresponse" jdbcType="VARCHAR" />
+		<result column="edate" property="edate" jdbcType="TIMESTAMP" />
+		<result column="pathParemater" property="pathParemater"
+			jdbcType="INTEGER" />
+		<result column="etypec" property="etypec" jdbcType="INTEGER" />
+		<result column="serviceNumber" property="serviceNumber"
+			jdbcType="INTEGER" />
+	</resultMap>
+
+	<select id="eventptotal_select" parameterType="Map" resultType="int">
+		SELECT count(*) from hredo c LEFT JOIN eventprocess a ON c.bid = a.bid
+		where c.etype=#{etype}
+	<if test="taskName != null and taskName != ''">
+			and a.bapp like concat('%', #{taskName}, '%')   
+		</if>
+		<if test="edates != null and edates != ''">
+			and c.edate >= str_to_date(#{edates},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="edaten != null and edaten != ''">
+			and c.edate &lt;= str_to_date(#{edaten},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="taskID != null and taskID != ''">
+			and c.bid = #{taskID}
+		</if>
+		and a.etype =1 and a.sid=0
+	</select>
+
+	<select id="eventp_pagination_select" parameterType="Map"
+		resultMap="eventProcessMap">
+		SELECT * from hredo c LEFT JOIN eventprocess a ON c.bid = a.bid
+		where		c.etype=#{etype}
+		<if test="taskName != null and taskName != ''">
+			and a.bapp like concat('%', #{taskName}, '%')   
+		</if>
+		<if test="edates != null and edates != ''">
+			and c.edate >= str_to_date(#{edates},'%Y-%m-%d %H:%i:%s')
+		</if>
+		<if test="edaten != null and edaten != ''">
+			and c.edate &lt;= str_to_date(#{edaten},'%Y-%m-%d
+			%H:%i:%s')
+		</if>
+		<if test="taskID != null and taskID != ''">
+			and c.bid = #{taskID}
+		</if>
+		 
+		and a.etype =1 and a.sid=0 ORDER BY c.edate desc
+		<if test="pageSize !=null and pageSize !=''">
+			limit ${pageSize} offset ${(pageNo-1)*pageSize}
+		</if>
+	</select>
+
+
+</mapper>

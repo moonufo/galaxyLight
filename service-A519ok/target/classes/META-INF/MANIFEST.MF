@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: service-B
+Implementation-Version: 1.0.0
+Built-By: ThinkPad
+Implementation-Vendor-Id: com.didispace
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/service-B/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+

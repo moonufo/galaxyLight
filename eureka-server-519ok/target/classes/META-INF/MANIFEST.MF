@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Implementation-Title: eureka-server
+Implementation-Version: 1.0.0
+Built-By: ThinkPad
+Implementation-Vendor-Id: com.didispace
+Build-Jdk: 1.8.0_112
+Implementation-URL: http://projects.spring.io/spring-boot/eureka-serve
+ r/
+Created-By: Maven Integration for Eclipse
+Implementation-Vendor: Pivotal Software, Inc.
+
